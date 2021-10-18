@@ -1,0 +1,12 @@
+name: trainer
+inputs:
+  - {name: processed_train_data_path, type: {GCPPath: {data_type: CSV}}}
+outputs:
+  - {name: model_path, type: {GCPPath: {data_type: PKL}}}
+implementation:
+  container:
+    image: "titanic_trainer"
+    args: 
+      - {inputPath: processed_train_data_path}
+      - {outputPath: model_path}
+      
