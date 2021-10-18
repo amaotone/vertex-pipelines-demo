@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "vertex-pipelines-demo"
+version = "0.1.0"
+description = ""
+authors = ["Amane Suzuki <amane.suzu@gmail.com>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+kfp = "^1.8.5"
+fire = "^0.4.0"
+invoke = "^1.6.0"
+
+[tool.poetry.dev-dependencies]
+pytest = "^6.2.5"
+flake8 = "^4.0.1"
+black = "^21.9b0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
