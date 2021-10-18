@@ -1,0 +1,15 @@
+name: preprocessor
+inputs:
+  - {name: train_data_path, type: {GCPPath: {data_type: CSV}}}
+  - {name: valid_data_path, type: {GCPPath: {data_type: CSV}}}
+outputs:
+  - {name: processed_train_data_path, type: {GCPPath: {data_type: CSV}}}
+  - {name: processed_valid_data_path, type: {GCPPath: {data_type: CSV}}}
+implementation:
+  container:
+    image: "titanic_preprocessor"
+    args: 
+      - {inputPath: train_data_path}
+      - {inputPath: valid_data_path}
+      - {outputPath: processed_train_data_path}
+      - {outputPath: processed_valid_data_path}
