@@ -17,7 +17,7 @@ TARGET_NAME = "Survived"
 def evaluate(
     processed_valid_data_path: str,
     model_path: str,
-    metrics_path: str,
+    mlpipeline_metrics: str,
     classification_report_path: str,
     confusion_matrix_path: str,
 ) -> None:
@@ -29,8 +29,8 @@ def evaluate(
     y_pred = model.predict(X_valid)
 
     accuracy = accuracy_score(y_valid, y_pred)
-    Path(metrics_path).parent.mkdir(parents=True, exist_ok=True)
-    Path(metrics_path).write_text(
+    Path(mlpipeline_metrics).parent.mkdir(parents=True, exist_ok=True)
+    Path(mlpipeline_metrics).write_text(
         json.dumps(
             {
                 "metrics": [

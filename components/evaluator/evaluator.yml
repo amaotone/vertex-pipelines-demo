@@ -3,7 +3,7 @@ inputs:
   - {name: processed_valid_data_path, type: {GCPPath: {data_type: CSV}}}
   - {name: model_path, type: {GCPPath: {data_type: PKL}}}
 outputs:
-  - {name: metrics_path, type: Metrics}
+  - {name: MLPipeline Metrics, type: Metrics}
   - {name: classification_report_path, type: {GCPPath: {data_type: TXT}}}
   - {name: confusion_matrix_path, type: {GCPPath: {data_type: PNG}}}
 implementation:
@@ -12,6 +12,6 @@ implementation:
     args: 
       - {inputPath: processed_valid_data_path}
       - {inputPath: model_path}
-      - {outputPath: metrics_path}
+      - {outputPath: MLPipeline Metrics}
       - {outputPath: classification_report_path}
       - {outputPath: confusion_matrix_path}
