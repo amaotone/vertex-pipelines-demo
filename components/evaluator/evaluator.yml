@@ -1,17 +1,17 @@
 name: evaluator
 inputs:
-  - {name: processed_valid_data_path, type: {GCPPath: {data_type: CSV}}}
-  - {name: model_path, type: {GCPPath: {data_type: PKL}}}
+  - {name: processed_valid_data_path, type: Dataset}
+  - {name: model_path, type: Model}
 outputs:
-  - {name: MLPipeline Metrics, type: Metrics}
-  - {name: classification_report_path, type: {GCPPath: {data_type: TXT}}}
-  - {name: confusion_matrix_path, type: {GCPPath: {data_type: PNG}}}
+  - {name: mlpipeline_metrics, type: Metrics}
+  - {name: classification_report_path, type: Artifact}
+  - {name: confusion_matrix_path, type: Artifact}
 implementation:
   container:
     image: ${image}
     args: 
       - {inputPath: processed_valid_data_path}
       - {inputPath: model_path}
-      - {outputPath: MLPipeline Metrics}
+      - {outputPath: mlpipeline_metrics}
       - {outputPath: classification_report_path}
       - {outputPath: confusion_matrix_path}

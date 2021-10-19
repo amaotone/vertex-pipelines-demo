@@ -2,8 +2,7 @@ from invoke import task
 from pathlib import Path
 from threading import Thread
 import os
-from kfp.v2.google.client import AIPlatformClient
-
+from google.cloud.aiplatform import PipelineJob
 
 DOCKER_IMAGE_PREFIX = "titanic"
 REGION = os.environ.get("REGION")
@@ -43,6 +42,11 @@ def compile(c):
 
 
 @task
-def run(c, spec_path):
-    client = AIPlatformClient(project_id=GCP_PROJECT_ID, region=REGION)
-    run_name = client.create_run_from_job_spec(spec_path, enable_caching=True)
+def run(c):
+    PipelineJob(
+        "titanic-pipeline",
+        "pipeline.json",
+        enable_caching=True,
+        project=GCP_PROJECT_ID,
+        location=REGION,
+    ).run()

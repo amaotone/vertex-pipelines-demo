@@ -52,7 +52,7 @@ def get_evaluator_op(
 
 @kfp.dsl.pipeline(name=NAME, pipeline_root=f"gs://{GCS_BUCKET_NAME}")
 def titanic_pipeline():
-    data_generator = get_data_generator_op()
+    data_generator = get_data_generator_op().set_cpu_limit("1")
     preprocessor = get_preprocessor_op(
         train_data_path=data_generator.outputs["train_data_path"],
         valid_data_path=data_generator.outputs["valid_data_path"],
