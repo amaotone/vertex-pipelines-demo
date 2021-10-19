@@ -2,8 +2,11 @@ from invoke import task
 from pathlib import Path
 from threading import Thread
 import os
+from kfp.v2.google.client import AIPlatformClient
+
 
 DOCKER_IMAGE_PREFIX = "titanic"
+REGION = os.environ.get("REGION")
 GCP_PROJECT_ID = os.environ.get("GCP_PROJECT_ID")
 ARTIFACT_REGISTRY_ENDPOINT = os.environ.get("ARTIFACT_REGISTRY_ENDPOINT")
 ARTIFACT_REGISTRY_REPOSITORY = os.environ.get("ARTIFACT_REGISTRY_REPOSITORY")
@@ -32,3 +35,14 @@ def build_all(c, parallel=False):
     else:
         for name in names:
             build(c, name)
+
+
+@task
+def compile(c):
+    c.run("dsl-compile --py pipeline.py --output pipeline.yml")
+
+
+@task
+def run(c, spec_path):
+    client = AIPlatformClient(project_id=GCP_PROJECT_ID, region=REGION)
+    run_name = client.create_run_from_job_spec(spec_path, enable_caching=True)
