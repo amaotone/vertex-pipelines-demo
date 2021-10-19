@@ -1,9 +1,10 @@
+from pathlib import Path
 import fire
 import pandas as pd
 import joblib
 from sklearn.pipeline import make_pipeline
-from sklearn.preprocessing import LabelEncoder
 from sklearn.ensemble import HistGradientBoostingClassifier
+import category_encoders as ce
 
 TARGET_NAME = "Survived"
 
@@ -17,10 +18,11 @@ def train(
     y_train = train[TARGET_NAME]
 
     # train
-    model = make_pipeline(LabelEncoder(), HistGradientBoostingClassifier())
+    model = make_pipeline(ce.OrdinalEncoder(), HistGradientBoostingClassifier())
     model.fit(X_train, y_train)
 
     # dump
+    Path(model_path).parent.mkdir(parents=True, exist_ok=True)
     joblib.dump(model, model_path)
 
 

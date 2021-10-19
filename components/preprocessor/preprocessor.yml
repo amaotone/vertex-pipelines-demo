@@ -7,7 +7,7 @@ outputs:
   - {name: processed_valid_data_path, type: {GCPPath: {data_type: CSV}}}
 implementation:
   container:
-    image: "titanic_preprocessor"
+    image: ${image}
     args: 
       - {inputPath: train_data_path}
       - {inputPath: valid_data_path}

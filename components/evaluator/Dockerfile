@@ -10,4 +10,4 @@ WORKDIR /app
 COPY --from=builder /app/.venv /app/.venv
 ENV PATH=/app/.venv/bin:$PATH
 COPY src /app/src
-ENTRYPOINT [ "python", "src/trainer.py" ]
+ENTRYPOINT [ "python", "src/evaluator.py" ]

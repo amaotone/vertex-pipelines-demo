@@ -4,7 +4,7 @@ outputs:
   - {name: valid_data_path, type: {GCPPath: {data_type: CSV}}}
 implementation:
   container:
-    image: "titanic_data_generator"
+    image: ${image}
     args: 
       - {outputPath: train_data_path}
       - {outputPath: valid_data_path}
